@@ -30,3 +30,10 @@ card.o: card.cpp card.h
 
 clean:
 	rm game_set game *.o
+
+
+
+
+
+
+	

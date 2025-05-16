@@ -17,7 +17,9 @@ class Card {
     bool compare_Cards (const Card& Card) const;
     bool operator<(const Card& other) const;
     int get_Number() const;
-    char get_suit() const;
+    char get_Suit() const;
+
+
 
 
 
@@ -32,6 +34,12 @@ class Card {
 
 
 
+
+
 };
 
 #endif
+
+
+
+

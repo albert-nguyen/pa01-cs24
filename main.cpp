@@ -84,14 +84,14 @@ int main(int argv, char** argc){
                       else if (currentCard.get_Number() == 11){number= 'j';}
                       else if (currentCard.get_Number() == 12){number= 'q';}
                       else if (currentCard.get_Number() == 13){number= 'k';}
-                      cout << "Alice picked matching card " << currentCard.get_suit() << " " << number << endl;
+                      cout << "Alice picked matching card " << currentCard.get_Suit() << " " << number << endl;
                       AliceCards.remove(currentCard);
                       BobCards.remove(bobCurrentCard);
                       foundMatch = true;
                       break;
                     } else
                     {
-                      cout << "Alice picked matching card " << currentCard.get_suit() << " " << currentCard.get_Number() << endl;
+                      cout << "Alice picked matching card " << currentCard.get_Suit() << " " << currentCard.get_Number() << endl;
                       AliceCards.remove(currentCard);
                       BobCards.remove(bobCurrentCard);
                       foundMatch = true;
@@ -128,16 +128,16 @@ int main(int argv, char** argc){
                       else if (bobCurrentCard.get_Number() == 11){number= 'j';}
                       else if (bobCurrentCard.get_Number() == 12){number= 'q';}
                       else if (bobCurrentCard.get_Number() == 13){number= 'k';}
-                      cout << "Bob picked matching card " << currentCard.get_suit() << " " << number << endl;
+                      cout << "Bob picked matching card " << currentCard.get_Suit() << " " << number << endl;
                       BobCards.remove(bobCurrentCard);
                       AliceCards.remove(currentCard);
                       foundMatch = true;
                       break;
                     }else
                     {
-                      cout << "Bob picked matching card " << bobCurrentCard.get_suit() << " " << bobCurrentCard.get_Number() << endl;
+                      cout << "Bob picked matching card " << bobCurrentCard.get_Suit() << " " << bobCurrentCard.get_Number() << endl;
                       BobCards.remove(bobCurrentCard);
-                      //  cout <<currentCard.get_suit() << " " <<currentCard.get_Number() << endl;
+                      //  cout <<currentCard.get_Suit() << " " <<currentCard.get_Number() << endl;
                        AliceCards.remove(currentCard);
                       foundMatch = true;
                       break;
@@ -168,3 +168,15 @@ int main(int argv, char** argc){
   BobCards.inorder();
   return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+

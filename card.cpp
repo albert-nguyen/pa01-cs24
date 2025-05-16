@@ -57,7 +57,7 @@ int Card::get_Number() const
 {
     return this->number;
 }
-char Card::get_suit() const
+char Card::get_Suit() const
 {
     if (this->suit==1) return 'c';
     else if (this->suit==2) return 'd';

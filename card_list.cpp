@@ -38,7 +38,7 @@ return insert(card, root);
 
 
 bool CardList::insert(const Card& card, Node *n) {
-if (card.get_Number() == n->card.get_Number() && card.get_suit() == n->card.get_suit()) {
+if (card.get_Number() == n->card.get_Number() && card.get_Suit() == n->card.get_Suit()) {
 return false;
 }
 else if (card < n->card) {
@@ -67,7 +67,7 @@ CardList::Node* CardList::getNodeFor(const Card& card, Node* n) const {
 if (n == nullptr) {
 return nullptr;
 }
-if (card.get_Number() == n->card.get_Number() && card.get_suit() == n->card.get_suit()) {
+if (card.get_Number() == n->card.get_Number() && card.get_Suit() == n->card.get_Suit()) {
 return n;
 }
 else if (card < n->card) {
@@ -141,7 +141,7 @@ curr = n;
 }
 else {
 while (n->parent != nullptr) {
-if (n->parent->card.get_suit() > card.get_suit() || (n->parent->card.get_suit() == card.get_suit() && n->parent->card.get_Number() > card.get_Number())) {
+if (n->parent->card.get_Suit() > card.get_Suit() || (n->parent->card.get_Suit() == card.get_Suit() && n->parent->card.get_Number() > card.get_Number())) {
 curr = n->parent;
 break;
 }
@@ -219,25 +219,13 @@ n->right->parent = temp;
 delete n;
 }
 else {
-// Node* successor = getSuccessorNode(card);
-// n->card = successor->card;
-// remove(successor->card);
-
     Card s = getSuccessor(card);
     remove(s);
     n->card = s;
-// if (successor->parent->left == successor) {
-//         successor->parent->left = nullptr;
-//     } else {
-//         successor->parent->right = nullptr;
-//     }
-//     delete successor;
 }
 
 return true;
 }
-
-
 
 
 void CardList::compareCardList(const CardList &other)const
@@ -262,12 +250,12 @@ void CardList::inorder(Node* n) const
         else if (n->card.get_Number() == 11){number= 'j';}
         else if (n->card.get_Number() == 12){number= 'q';}
         else if (n->card.get_Number() == 13){number= 'k';}
-        char j = n->card.get_suit();
+        char j = n->card.get_Suit();
         cout << j << " " << number << endl;
         }else
         {
             int i = n->card.get_Number();
-            char j = n->card.get_suit();
+            char j = n->card.get_Suit();
             cout << j << " " << i << endl;
         }
         if (n-> right != nullptr)
@@ -281,3 +269,9 @@ void CardList::inorder(Node* n) const
         return;
     }
 }
+
+
+
+
+
+

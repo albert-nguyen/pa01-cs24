@@ -68,14 +68,14 @@ int main(int argv, char** argc){
               else if (card1.get_Number() == 11){number= 'j';}
               else if (card1.get_Number() == 12){number= 'q';}
               else if (card1.get_Number() == 13){number= 'k';}
-              cout << "Alice picked matching card " << card1.get_suit() << " " << number << endl;
+              cout << "Alice picked matching card " << card1.get_Suit() << " " << number << endl;
               AliceCards.erase(card1);
               BobCards.erase(card2);
               foundMatch = true;
               break;
 
             }else{
-            cout << "Alice picked matching card " << card1.get_suit() << " " << card1.get_Number() << endl;
+            cout << "Alice picked matching card " << card1.get_Suit() << " " << card1.get_Number() << endl;
             AliceCards.erase(card1);
             BobCards.erase(card2);
             foundMatch = true;
@@ -101,14 +101,14 @@ int main(int argv, char** argc){
               else if (card1.get_Number() == 11){number= 'j';}
               else if (card1.get_Number() == 12){number= 'q';}
               else if (card1.get_Number() == 13){number= 'k';}
-              cout << "Bob picked matching card " << card1.get_suit() << " " << number << endl;
+              cout << "Bob picked matching card " << card1.get_Suit() << " " << number << endl;
               BobCards.erase(card1);
               AliceCards.erase(card2);
               foundMatch = true;
               break;
             }
             else{
-              cout << "Bob picked matching card " << card1.get_suit() << " " << card1.get_Number() << endl;
+              cout << "Bob picked matching card " << card1.get_Suit() << " " << card1.get_Number() << endl;
               BobCards.erase(card1);
               AliceCards.erase(card2);
               foundMatch = true;
@@ -135,10 +135,10 @@ int main(int argv, char** argc){
       else if (card1.get_Number() == 11){number= 'j';}
       else if (card1.get_Number() == 12){number= 'q';}
       else if (card1.get_Number() == 13){number= 'k';}
-      cout << card1.get_suit() << " " << number << endl;
+      cout << card1.get_Suit() << " " << number << endl;
     }else
     {
-      cout << card1.get_suit() << " " << card1.get_Number() << endl;
+      cout << card1.get_Suit() << " " << card1.get_Number() << endl;
     }
   }
   cout << endl;
@@ -153,13 +153,18 @@ int main(int argv, char** argc){
       else if (card1.get_Number() == 11){number= 'j';}
       else if (card1.get_Number() == 12){number= 'q';}
       else if (card1.get_Number() == 13){number= 'k';}
-      cout << card1.get_suit() << " " << number << endl;
+      cout << card1.get_Suit() << " " << number << endl;
     }else
     {
-      cout << card1.get_suit() << " " << card1.get_Number() << endl;
+      cout << card1.get_Suit() << " " << card1.get_Number() << endl;
     }
   }
 
   
   return 0;
 }
+
+
+
+
+
