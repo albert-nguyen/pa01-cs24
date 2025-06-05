@@ -1,77 +1,71 @@
 // card.cpp
-// Author: Albert Nguyen
+// Author: ALbert Nguyen
 // Implementation of the classes defined in card.h
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
 #include "card.h"
 
-void Card::set_Number(char number)
-{
-    //Sets card number by converting it into an int
-    if (number == 'a') {this->number=1;}
-    else if(number == '2'){this->number=2;}
-    else if(number == '3'){this->number=3;}
-    else if(number == '4'){this->number=4;}
-    else if(number == '5'){this->number=5;}
-    else if(number == '6'){this->number=6;}
-    else if(number == '7'){this->number=7;}
-    else if(number == '8'){this->number=8;}
-    else if(number == '9'){this->number=9;}
-    else if(number == 'j'){this->number=11;}
-    else if(number == 'q'){this->number=12;}
-    else if(number == 'k'){this->number=13;}
-    else {this->number = 10;}
-
+Card::Card(char x, string y) {
+    suit = x;
+    rank = y;
 }
 
-void Card::set_suit(char suit)
-{
-    //Sets card suit
-    if (suit == 'c') {this->suit=1;}
-    else if(suit == 'd'){this->suit=2;}
-    else if(suit == 's'){this->suit=3;}
-    else if(suit == 'h'){this->suit=4;}
-
+string Card::toString() const {
+    return string(1, suit) + " " + rank;
 }
 
-bool Card::compare_Cards(const Card& Card) const
-{
-    if (this->suit == Card.suit)
-    {
-        if (this->number == Card.number)
-        {
-            return true;
-        }
+int Card::suitValue() const {
+    if (suit == 'c') return 0;
+    if (suit == 'd') return 1;
+    if (suit == 's') return 2;
+    if (suit == 'h') return 3;
+    return -1;
+}
+
+int Card::rankValue() const {
+    if (rank == "a") return 1;
+    if (rank == "2") return 2;
+    if (rank == "3") return 3;
+    if (rank == "4") return 4;
+    if (rank == "5") return 5;
+    if (rank == "6") return 6;
+    if (rank == "7") return 7;
+    if (rank == "8") return 8;
+    if (rank == "9") return 9;
+    if (rank == "10") return 10;
+    if (rank == "j") return 11;
+    if (rank == "q") return 12;
+    if (rank == "k") return 13;
+    return -1;
+}
+
+bool Card::operator==(const Card& other) const {
+    return suit == other.suit && rank == other.rank;
+}
+
+bool Card::operator<(const Card& other) const {
+    if (suitValue() == other.suitValue()) {
+        return rankValue() < other.rankValue();
     }
-    return false;
+    return suitValue() < other.suitValue();
 }
 
-bool Card::operator<(const Card& other) const
-{
-    if(suit != other.suit)
-    {
-        return suit < other.suit;
+bool Card::operator>(const Card& other) const {
+    if (suitValue() == other.suitValue()) {
+        return rankValue() > other.rankValue();
     }
-        return number < other.number;
+    return suitValue() > other.suitValue();
 }
 
-int Card::get_Number() const
-{
-    return this->number;
+void Card::printCard() {
+    cout << suit << " " << rank << endl;
 }
-char Card::get_Suit() const
-{
-    if (this->suit==1) return 'c';
-    else if (this->suit==2) return 'd';
-    else if (this->suit==3) return 's';
-    else if (this->suit==4) return 'h';
-    return '\n';
-}
-Card::Card()
-{
-    suit = 0;
-    number = 0;
-}
-Card::Card(int i , int j)
-{
-    suit = i;
-    number = j;
-}
+
+
+
+
+

@@ -1,122 +1,217 @@
-#include <iostream>
 #include "card_list.h"
+#include <iostream>
+#include <string>
 
 using namespace std;
 
+void testInsertAndContains() {
+    BST myTree;
+    Card card1('c', "4");
+    myTree.insert(card1);
+
+    cout << "Test insert and contains:" << endl;
+    if (myTree.contains(card1)) {
+        cout << "  PASS: myTree contains card C4" << endl;
+    }
+    else {
+        cout << "  FAIL: myTree does not contain card C4" << endl;
+    }
+}
+
+void testSuccessorAndPredecessor() {
+    BST myTree;
+    Card card1('h', "2");
+    Card card2('h', "4");
+    Card card3('h', "7");
+    myTree.insert(card1);
+    myTree.insert(card2);
+    myTree.insert(card3);
+
+    const Card* successor = myTree.getSuccessorNode(card1);
+    const Card* predecessor = myTree.getPredecessorNode(card3);
+
+    cout << "Successor of " << card1.toString() << " is ";
+    if (successor != nullptr) {
+        cout << successor->toString() << endl;
+    } else {
+        cout << "nullptr" << endl;
+    }
+
+    cout << "Predecessor of " << card3.toString() << " is ";
+    if (predecessor != nullptr) {
+        cout << predecessor->toString() << endl;
+    } else {
+        cout << "nullptr" << endl;
+    }
+}
+
+void testRemove() {
+    BST myTree;
+    Card card1('h', "5");
+    myTree.insert(card1);
+    myTree.remove(card1);
+
+    cout << "Test remove:" << endl;
+    if (!myTree.contains(card1)) {
+        cout << "  PASS: Card H5 removed from myTree" << endl;
+    }
+    else {
+        cout << "  FAIL: Card H5 still in myTree" << endl;
+    }
+}
+
+void testCount() {
+    BST myTree;
+    Card card1('d', "8");
+    Card card2('h', "9");
+    myTree.insert(card1);
+    myTree.insert(card2);
+
+    cout << "Test count:" << endl;
+    if (myTree.count() == 2) {
+        cout << "  PASS: myTree size is 2" << endl;
+    }
+    else {
+        cout << "  FAIL: myTree size is not 2" << endl;
+    }
+}
+
+void testPrintDeck() {
+    BST myTree;
+    myTree.insert(Card('h', "2"));
+    myTree.insert(Card('h', "3"));
+
+    cout << "Test printDeck (in order):" << endl;
+    myTree.printDeck();
+
+    cout << "Test printDeck (reverse):" << endl;;
+    myTree.printDeck(true);
+}
+
+void testIterator() {
+    BST myTree;
+    Card card1('c', "3");
+    Card card2('c', "2");
+    Card card3('c', "9");
+    myTree.insert(card1);
+    myTree.insert(card2);
+    myTree.insert(card3);
+
+    cout << "Test iterator in-order:" << endl;
+    for (BST::Iterator it = myTree.begin(); it != myTree.end(); ++it) {
+        cout << "  " << it->toString() << endl;
+    }
+
+    cout << "Test iterator reverse order:" << endl;
+    for (BST::Iterator it = myTree.rbegin(); it != myTree.rend(); --it) {
+        cout << "  " << it->toString() << endl;
+    }
+}
+
+void testPlayGame() {
+    BST alice, bob;
+    alice.insert(Card('h', "3"));
+    alice.insert(Card('s', "10"));
+    alice.insert(Card('c', "a"));
+    alice.insert(Card('c', "3"));
+    alice.insert(Card('s', "5"));
+    alice.insert(Card('h', "10"));
+    alice.insert(Card('d', "a"));
+    bob.insert(Card('c', "2"));
+    bob.insert(Card('d', "a"));
+    bob.insert(Card('h', "3"));
+    bob.insert(Card('c', "3"));
+    bob.insert(Card('d', "j"));
+    bob.insert(Card('s', "10"));
+    bob.insert(Card('h', "a"));
+
+    cout << "Test playGame with match:" << endl;
+    playGame(alice, bob);
+}
+
+void printMenu() {
+    cout << "\n--- BST Test Menu ---\n";
+    cout << "1. Test insert and contains\n";
+    cout << "2. Test successor and predecessor\n";
+    cout << "3. Test remove\n";
+    cout << "4. Test count\n";
+    cout << "5. Test printDeck\n";
+    cout << "6. Test iterator\n";
+    cout << "7. Test playGame\n";
+    cout << "8. Run all tests\n";
+    cout << "0. Exit\n";
+    cout << "Enter your choice: ";
+}
+
+void testAll(){
+    testInsertAndContains();
+    testSuccessorAndPredecessor();
+    testRemove();
+    testCount();
+    testPrintDeck();
+    testIterator();
+    testPlayGame();
+
+}
+
 int main() {
-    // Create a BST named cardDeck
-    CardList cardDeck;
+    int choice;
+    string input;
 
-    // Testing insert() function
-    cout << "Testing insert() function:" << endl;
-    Card diam7(2, 7);
-    cardDeck.insert(diam7);
-    Card diam2(2, 2);
-    cardDeck.insert(diam2);
-    Card spade11(3, 11);
-    cardDeck.insert(spade11);
-    Card spade12(3, 12);
-    cardDeck.insert(spade12);
-    Card heart10(4, 10);
-    cardDeck.insert(heart10);
-    Card club12(1, 12);
-    cardDeck.insert(club12);
-    Card diam8(2, 8);
-    cardDeck.insert(diam8);
-    Card diam1_dup(2, 2);
-    cardDeck.insert(diam2);
-    cout << endl;
+    do {
+        printMenu();
+        getline(cin, input);
 
-    // Display cardDeck after inserting cards
-    cout << "cardDeck after insertion in order: " << endl;
-    cardDeck.inorder();
-    cout << endl;
+        try {
+            choice = stoi(input);
+        } catch (...) {
+            choice = -1; 
+        }
 
-    //Testing find() function
-    cout << "Testing find() function:" << endl;
-    cout << "Finding card (s, q) "; (cardDeck.find(Card(3, 12)) ? cout << "Found\n" : cout << "Not found\n");
-    cout << "Finding card (d, 6) "; (cardDeck.find(Card(2, 6)) ? cout << "Found\n" : cout << "Not found\n");
-    cout << "Finding card (h, 10) "; (cardDeck.find(heart10) ? cout << "Found\n" : cout << "Not found\n");
-    cout << "Finding card (c, 10) "; (cardDeck.find(Card(1, 10)) ? cout << "Found\n" : cout << "Not found\n");
-    cout << "Finding card (c, q) "; (cardDeck.find(club12) ? cout << "Found\n" : cout << "Not found\n");
+        switch (choice) {
+            case 1:
+                testInsertAndContains();
+                break;
+            case 2:
+                testSuccessorAndPredecessor();
+                break;
+            case 3:
+                testRemove();
+                break;
+            case 4:
+                testCount();
+                break;
+            case 5:
+                testPrintDeck();
+                break;
+            case 6:
+                testIterator();
+                break;
+            case 7:
+                testPlayGame();
+                break;
+            case 8:
+                testAll();
+                break;
+            case 0:
+                cout << "Exiting tests. Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid input. Please enter a number from 0 to 8.\n";
+        }
 
-    // Testing getPredecessor() function
-    cout << "Testing getPredecessor() function:" << endl;
-    cout << "Predecessor of card (d, 7) "; 
-    Card pred1 = cardDeck.getPredecessor(diam7);
-    if (pred1.get_Number() == 0) cout << "No predecessor\n";
-    else cout << pred1.get_Suit() << " " << pred1.get_Number() << endl;
-    cout << "Predecessor of card (s, q) "; 
-    Card pred2 = cardDeck.getPredecessor(spade12);
-    if (pred2.get_Number() == 0) cout << "No predecessor\n";
-    else cout << pred2.get_Suit() << " " << pred2.get_Number() << endl;
-    cout << "Predecessor of card (c, j) "; 
-    Card pred3 = cardDeck.getPredecessor(club12);
-    if (pred3.get_Number() == 0) cout << "No predecessor\n";
-    else cout << pred3.get_Suit() << " " << pred3.get_Number() << endl;
-    cout << "Predecessor of card (h, 10) "; 
-    Card pred4 = cardDeck.getPredecessor(heart10);
-    if (pred4.get_Number() == 0) cout << "No predecessor\n";
-    else cout << pred4.get_Suit() << " " << pred4.get_Number() << endl;
-    cout << "Predecessor of card (h, a) "; 
-    Card pred5 = cardDeck.getPredecessor(Card(4,1));
-    if (pred5.get_Number() == 0) cout << "No predecessor\n";
-    else cout << pred5.get_Suit() << " " << pred5.get_Number() << endl;
-
-    // Testing getSuccessor() function
-    cout << "Testing getSuccessor() function:" << endl;
-    cout << "Successor of card (s, q) "; 
-    Card succ1 = cardDeck.getSuccessor(spade12);
-    if (succ1.get_Number() == 0) cout << "No successor\n";
-    else cout << succ1.get_Suit() << " " << succ1.get_Number() << endl;
-    cout << "Successor of card (d, 8) "; 
-    Card succ2 = cardDeck.getSuccessor(diam8);
-    if (succ2.get_Number() == 0) cout << "No successor\n";
-    else cout << succ2.get_Suit() << " " << succ2.get_Number() << endl;
-    cout << "Successor of card (h, 10) "; 
-    Card succ3 = cardDeck.getSuccessor(heart10);
-    if (succ3.get_Number() == 0) cout << "No successor\n";
-    else cout << succ3.get_Suit() << " " << succ3.get_Number() << endl;
-    cout << "Successor of card (c, q) "; 
-    Card succ4 = cardDeck.getSuccessor(club12);
-    if (succ4.get_Number() == 0) cout << "No successor\n";
-    else cout << succ4.get_Suit() << " " << succ4.get_Number() << endl;
-    cout << "Successor of card (d, j) "; 
-    Card succ5 = cardDeck.getSuccessor(Card(2,11));
-    if (succ5.get_Number() == 0) cout << "No successor\n";
-    else cout << succ5.get_Suit() << " " << succ5.get_Number() << endl;
-
-    // Testing remove() function
-    cout << "Testing remove() function:" << endl;
-    cout << endl;
-    cout << "Removing card (s, q) "<< endl; 
-    cardDeck.remove(spade12);
-    cout << "cardDeck after removal: ";
-    cardDeck.inorder();
-    cout << endl;
-    cout << "Removing card (c, j) "<< endl; 
-    cardDeck.remove(club12);
-    cout << "cardDeck after removal: "<< endl;
-    cardDeck.inorder();
-    cout << endl;
-    cout << "Removing card (c, 4) "<<endl; 
-    cardDeck.remove(Card(1, 4));
-    cout << "cardDeck after removal: " << endl;
-    cardDeck.inorder();
-    cout << endl;
-    cout << "Removing card (h, 10) " << endl; 
-    cardDeck.remove(Card(4, 10));
-    cout << "cardDeck after removal: "<< endl;
-    cardDeck.inorder();
-    cout << endl;
-    cout << "Removing card (d, 7) " << endl; 
-    cardDeck.remove(Card(2, 7));
-    cout << "cardDeck after removal: " << endl;
-    cardDeck.inorder();
-    cout << endl;
+    } while (choice != 0);
 
     return 0;
 }
+
+
+
+
+
+
+
+
 
 
 
