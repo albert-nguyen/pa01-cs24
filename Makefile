@@ -1,39 +1,30 @@
-CXX=g++ 
+# Compiler and flags
+CXX = g++
 CXXFLAGS = -g --std=c++20 -Wall
 
+# Phony targets (not actual files)
+.PHONY: all clean tests
+
+# Default target
 all: game game_set
 
+# Build game_set using card and main_set
 game_set: card.o main_set.o
-	${CXX} ${CXXFLAGS} card.o main_set.o -o game_set
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
+# Build game using card, card_list, and main
 game: card.o card_list.o main.o
-	${CXX} ${CXXFLAGS} card_list.o card.o main.o -o game
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
+# Build and run tests
 tests: card.o card_list.o tests.o
-	${CXX} ${CXXFLAGS} card.o card_list.o tests.o -o tests
+	$(CXX) $(CXXFLAGS) $^ -o $@
 	./tests
 
-main_set.o: main_set.cpp
-	${CXX} ${CXXFLAGS} main_set.cpp -c
+# Pattern rule for compiling .cpp to .o
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-main.o: main.cpp
-	${CXX} ${CXXFLAGS} main.cpp -c
-
-tests.o: tests.cpp
-	${CXX} ${CXXFLAGS} tests.cpp -c
-
-card_list.o: card_list.cpp card_list.h
-	${CXX} ${CXXFLAGS} card_list.cpp -c
-
-card.o: card.cpp card.h
-	${CXX} ${CXXFLAGS} card.cpp -c
-
+# Clean up build artifacts
 clean:
-	rm game_set game *.o
-
-
-
-
-
-
-	
+	rm -f game_set game tests *.o
